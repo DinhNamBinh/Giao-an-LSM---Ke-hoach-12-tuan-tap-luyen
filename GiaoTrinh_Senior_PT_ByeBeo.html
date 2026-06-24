@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Giáo Trình Senior PT — Vận Động An Toàn & Sport Technology</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Open+Sans:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --blue:#1B4F8A;--blue2:#2563AB;--blue-lt:#E8F0FB;
+  --orange:#E8702A;--orange-lt:#FDF1EA;
+  --teal:#0A7A7A;--teal-lt:#E5F4F4;
+  --green:#1A6B35;--green-lt:#E8F5EC;
+  --red:#B91C1C;--red-lt:#FEF2F2;
+  --yellow:#CA8A04;--yellow-lt:#FEFCE8;
+  --gray:#374151;--gray-lt:#F9FAFB;
+  --border:#E5E7EB;--white:#fff;--text:#111827
+}
+body{font-family:'Open Sans',sans-serif;color:var(--text);background:#F1F5F9;font-size:15px;line-height:1.7}
+h1,h2,h3,h4,.chapter-label{font-family:'Poppins',sans-serif}
+
+/* ── HERO identical to NASM ── */
+.hero{background:var(--blue);position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;top:-60px;right:-80px;width:400px;height:400px;background:rgba(255,255,255,.05);border-radius:50%}
+.hero-chapter{display:inline-block;background:var(--orange);color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;letter-spacing:1px;padding:6px 16px;margin-bottom:18px}
+.hero-inner{max-width:1080px;margin:0 auto;padding:52px 32px 44px;position:relative;z-index:1}
+.hero h1{font-size:clamp(30px,4.5vw,52px);font-weight:800;color:#fff;line-height:1.18;margin-bottom:14px}
+.hero-sub{font-size:16px;color:rgba(255,255,255,.82);max-width:660px;margin-bottom:28px}
+.hero-pills{display:flex;flex-wrap:wrap;gap:10px}
+.hero-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:rgba(255,255,255,.85);font-size:12px;font-weight:600;padding:5px 14px;border-radius:20px}
+
+/* ── STICKY NAV (NASM style) ── */
+.topnav{position:sticky;top:0;z-index:200;background:var(--blue);border-bottom:3px solid var(--orange)}
+.topnav-inner{max-width:1080px;margin:0 auto;padding:0 24px;display:flex;align-items:center;gap:2px;overflow-x:auto;scrollbar-width:none}
+.topnav-inner::-webkit-scrollbar{display:none}
+.topnav a{font-family:'Open Sans',sans-serif;font-size:13px;font-weight:600;color:rgba(255,255,255,.7);text-decoration:none;padding:13px 15px;white-space:nowrap;border-bottom:3px solid transparent;margin-bottom:-3px;transition:.2s}
+.topnav a:hover,.topnav a.act{color:#fff;border-bottom-color:var(--orange)}
+
+/* ── LAYOUT ── */
+.wrap{max-width:1080px;margin:0 auto;padding:36px 24px}
+.cols{display:grid;grid-template-columns:1fr 288px;gap:36px;align-items:start}
+.main{}
+.side{position:sticky;top:56px}
+@media(max-width:860px){.cols{grid-template-columns:1fr}.side{position:static}.wrap{padding:20px 14px}}
+
+/* ── SECTION HEADERS (NASM style) ── */
+.sec-head{margin:0 0 24px}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;color:var(--orange);margin-bottom:6px}
+.sec-head h2{font-size:26px;font-weight:700;color:var(--blue);border-bottom:3px solid var(--orange);padding-bottom:10px;display:inline-block}
+
+/* ── CHAPTER BANNER ── */
+.ch-banner{background:var(--blue);border-radius:12px;padding:28px 32px;margin-bottom:28px;position:relative;overflow:hidden}
+.ch-banner::after{content:'';position:absolute;right:-40px;top:-40px;width:180px;height:180px;background:rgba(255,255,255,.06);border-radius:50%}
+.ch-badge{display:inline-block;background:var(--orange);color:#fff;font-family:'Poppins',sans-serif;font-size:12px;font-weight:700;padding:4px 14px;margin-bottom:12px;letter-spacing:.5px}
+.ch-banner h2{font-size:28px;font-weight:800;color:#fff;line-height:1.2;position:relative;z-index:1}
+.ch-banner p{color:rgba(255,255,255,.75);font-size:14px;margin-top:8px;position:relative;z-index:1}
+
+/* ── CARDS ── */
+.card{background:var(--white);border-radius:10px;box-shadow:0 1px 8px rgba(0,0,0,.08);border:1px solid var(--border);overflow:hidden;margin-bottom:24px}
+.card-body{padding:22px 26px}
+
+/* ── NASM INFO BOXES ── */
+.ibox{border-radius:8px;padding:16px 20px;margin:16px 0}
+.ibox-head{font-family:'Open Sans',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.ibox-head svg{flex-shrink:0}
+.ibox p,.ibox ul{font-size:13.5px;line-height:1.65}
+.ibox ul{padding-left:18px}
+.ibox ul li{margin-bottom:4px}
+.ibox.stretch{background:#EBF3FF;border-left:4px solid var(--blue2)}
+.ibox.stretch .ibox-head{color:var(--blue)}
+.ibox.tip{background:var(--orange-lt);border-left:4px solid var(--orange)}
+.ibox.tip .ibox-head{color:var(--orange)}
+.ibox.warn{background:var(--red-lt);border-left:4px solid var(--red)}
+.ibox.warn .ibox-head{color:var(--red)}
+.ibox.good{background:var(--green-lt);border-left:4px solid var(--green)}
+.ibox.good .ibox-head{color:var(--green)}
+.ibox.key{background:var(--yellow-lt);border-left:4px solid var(--yellow)}
+.ibox.key .ibox-head{color:var(--yellow)}
+
+/* ── GLOSSARY TERM (NASM accordion style) ── */
+.gloss-item{background:var(--white);border:1px solid var(--border);border-radius:8px;margin-bottom:8px;overflow:hidden}
+.gloss-head{display:flex;align-items:center;gap:10px;padding:12px 16px;cursor:pointer;background:var(--blue);color:#fff;font-family:'Poppins',sans-serif;font-size:14px;font-weight:600;user-select:none}
+.gloss-head .en{font-size:11px;color:rgba(255,255,255,.7);font-weight:400;font-family:'Open Sans',sans-serif;margin-left:auto}
+.gloss-body{display:none;padding:12px 16px;font-size:13.5px;color:var(--gray);line-height:1.65;border-top:1px solid var(--border)}
+.gloss-item.open .gloss-body{display:block}
+.gloss-dot{width:8px;height:8px;border-radius:50%;background:var(--orange);flex-shrink:0}
+
+/* ── FORMULA BOX ── */
+.formula{background:#0F2B5B;border-radius:10px;padding:22px 26px;margin:16px 0}
+.formula-label{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:#7AB3E0;margin-bottom:10px;font-family:'Poppins',sans-serif;font-weight:600}
+.formula-eq{font-family:'Courier New',monospace;font-size:18px;font-weight:700;color:#E8F0FB;margin:6px 0}
+.formula-note{font-size:12.5px;color:rgba(255,255,255,.62);margin-top:10px;line-height:1.6}
+
+/* ── TABLES ── */
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;margin:14px 0}
+.tbl th{background:var(--blue);color:#fff;padding:9px 13px;font-family:'Poppins',sans-serif;font-weight:600;font-size:13px;text-align:left}
+.tbl td{padding:9px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+.tbl tr:nth-child(even) td{background:#F8FAFF}
+.tbl tr:hover td{background:#EBF3FF}
+.tbl td:first-child{font-weight:600}
+
+/* ── CASE CARDS ── */
+.case-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin:16px 0}
+.case-card{border-radius:10px;padding:18px 16px;text-align:center;border:2px solid}
+.case-card .case-icon{font-size:32px;margin-bottom:8px}
+.case-card h4{font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;margin-bottom:6px}
+.case-card p{font-size:12px;line-height:1.5}
+.case-xanh{background:#EBF5FB;border-color:#2196F3;color:#0D47A1}
+.case-vang{background:#FFF3E0;border-color:#FF9800;color:#E65100}
+.case-do{background:#FFEBEE;border-color:#F44336;color:#B71C1C}
+@media(max-width:580px){.case-grid{grid-template-columns:1fr}}
+
+/* ── WEEK TABLE ── */
+.week-tbl{width:100%;border-collapse:collapse;font-size:12.5px;margin:16px 0}
+.week-tbl th{background:var(--blue);color:#fff;padding:8px 10px;font-family:'Poppins',sans-serif;font-size:12px;font-weight:600;white-space:nowrap}
+.week-tbl td{padding:8px 10px;border-bottom:1px solid var(--border);vertical-align:top}
+.week-tbl tr:nth-child(even) td{background:#F8FAFF}
+.wk-num{background:var(--orange);color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:13px;text-align:center;white-space:nowrap}
+.theory-cell{background:#EBF3FF;font-size:12px}
+.kpi-cell{font-size:11px;color:var(--green);font-weight:600}
+.point-cell{background:var(--orange-lt);font-size:11px;font-weight:600;color:var(--orange)}
+
+/* ── OPT PHASES ── */
+.opt-wrap{display:grid;grid-template-columns:1fr;gap:8px;margin:16px 0}
+.opt-row{display:flex;align-items:center;gap:14px;border-radius:8px;padding:12px 16px;cursor:default;transition:transform .2s}
+.opt-row:hover{transform:translateX(5px)}
+.opt-p1{background:#EBF3FF;border-left:5px solid #1976D2}
+.opt-p2{background:#E8F5E9;border-left:5px solid #388E3C}
+.opt-p3{background:#FFF8E1;border-left:5px solid #F9A825}
+.opt-p4{background:#FFEBEE;border-left:5px solid #C62828}
+.opt-p5{background:#EDE7F6;border-left:5px solid #512DA8}
+.opt-num{width:34px;height:34px;min-width:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Poppins',sans-serif;font-weight:700;font-size:14px}
+.opt-p1 .opt-num{background:#1976D2}
+.opt-p2 .opt-num{background:#388E3C}
+.opt-p3 .opt-num{background:#F9A825}
+.opt-p4 .opt-num{background:#C62828}
+.opt-p5 .opt-num{background:#512DA8}
+.opt-title{font-family:'Poppins',sans-serif;font-size:14px;font-weight:700;color:var(--blue)}
+.opt-en{font-size:12px;color:var(--gray)}
+.opt-badge{margin-left:auto;font-size:11px;font-weight:700;color:#fff;padding:3px 10px;border-radius:12px;white-space:nowrap}
+.opt-p1 .opt-badge{background:#1976D2}
+.opt-p2 .opt-badge{background:#388E3C}
+.opt-p3 .opt-badge{background:#F9A825;color:#333}
+.opt-p4 .opt-badge{background:#C62828}
+.opt-p5 .opt-badge{background:#512DA8}
+
+/* ── HR ZONES ── */
+.hr-zones{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:16px 0}
+.hz{border-radius:8px;padding:12px 8px;text-align:center}
+.hz .zn{font-family:'Poppins',sans-serif;font-size:18px;font-weight:800}
+.hz .zp{font-size:12px;font-weight:700;margin:3px 0}
+.hz .zl{font-size:11px}
+.hz1{background:#E8F5E9;color:#1A6B35}.hz2{background:#E3F2FD;color:#1565C0}.hz3{background:#FFF8E1;color:#B56A00}.hz4{background:#FFF3E0;color:#E65100}.hz5{background:#FFEBEE;color:#B71C1C}
+@media(max-width:580px){.hr-zones{grid-template-columns:repeat(3,1fr)}}
+
+/* ── STAT CARDS ── */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px;margin:16px 0}
+.stat{background:#fff;border-radius:10px;padding:18px;box-shadow:0 1px 6px rgba(0,0,0,.07);border-top:4px solid var(--blue);text-align:center}
+.stat .sn{font-family:'Poppins',sans-serif;font-size:32px;font-weight:800;color:var(--blue);line-height:1}
+.stat .su{font-size:14px;color:var(--blue2);font-weight:600}
+.stat .sl{font-size:12px;color:#6B7280;margin-top:5px;line-height:1.4}
+
+/* ── CONTRA TABLE COLORS ── */
+.cc-abs td:first-child{background:#FFEBEE;color:var(--red);font-weight:700}
+.cc-rel td:first-child{background:#FFF3E0;color:#C2410C;font-weight:700}
+.cc-cau td:first-child{background:#FFF8E1;color:var(--yellow);font-weight:700}
+
+/* ── SIDEBAR ── */
+.side-card{background:#fff;border-radius:10px;box-shadow:0 1px 6px rgba(0,0,0,.07);border:1px solid var(--border);padding:18px;margin-bottom:18px}
+.side-card h4{font-family:'Poppins',sans-serif;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#9CA3AF;margin-bottom:12px}
+.side-toc a{display:block;font-size:13px;color:#374151;text-decoration:none;padding:6px 0;border-bottom:1px solid var(--border)}
+.side-toc a:last-child{border-bottom:none}
+.side-toc a:hover{color:var(--blue)}
+
+/* ── DIVIDER ── */
+.div{height:3px;background:linear-gradient(90deg,var(--blue),var(--teal));border-radius:2px;margin:40px 0 32px}
+
+/* ── BMI TABLE COLORS ── */
+.bmi-tbl td:nth-child(2).ok{background:var(--green-lt);color:var(--green)}
+.bmi-tbl td:nth-child(2).warn1{background:var(--yellow-lt);color:var(--yellow)}
+.bmi-tbl td:nth-child(2).warn2{background:var(--orange-lt);color:var(--orange)}
+.bmi-tbl td:nth-child(2).bad{background:var(--red-lt);color:var(--red)}
+
+/* ── SCROLL TOP ── */
+#top{position:fixed;bottom:24px;right:24px;background:var(--blue);color:#fff;width:42px;height:42px;border-radius:50%;border:none;cursor:pointer;font-size:18px;box-shadow:0 3px 14px rgba(27,79,138,.4);display:none;align-items:center;justify-content:center;z-index:999}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-inner">
+    <div class="hero-chapter">GIÁO TRÌNH SENIOR PT · STA STANDARD</div>
+    <h1>Vận Động An Toàn<br>&amp; Sport Technology</h1>
+    <p class="hero-sub">Chương trình đào tạo 12 tuần cho Senior Personal Trainer — 5 module lý thuyết, 3 case thực hành, 2 buổi/ngày · Dựa trên NASM CPT7 &amp; Bye Béo Coach Handbook</p>
+    <div class="hero-pills">
+      <span class="hero-pill">12 Tuần · 2 Buổi/Ngày</span>
+      <span class="hero-pill">5 Module Lý Thuyết</span>
+      <span class="hero-pill">3 Case: Xanh · Vàng · Đỏ</span>
+      <span class="hero-pill">NASM CPT7 + Bye Béo</span>
+    </div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="topnav">
+  <div class="topnav-inner">
+    <a href="#intro">Tổng quan</a>
+    <a href="#neat">NEAT</a>
+    <a href="#progression">Progression</a>
+    <a href="#core">Core</a>
+    <a href="#wearable">Wearable</a>
+    <a href="#contra">Chống Chỉ Định</a>
+    <a href="#xanh">Case Xanh</a>
+    <a href="#vang">Case Vàng</a>
+    <a href="#do">Case Đỏ</a>
+    <a href="#tong-hop">Tổng Hợp</a>
+    <a href="#glossary">Thuật Ngữ</a>
+  </div>
+</nav>
+
+<div class="wrap">
+<div class="cols">
+<div class="main">
+
+<!-- ══ INTRO ══ -->
+<section id="intro">
+  <div class="ch-banner">
+    <div class="ch-badge">PHẦN I — LÝ THUYẾT NỀN</div>
+    <h2>5 Module Kiến Thức Cốt Lõi</h2>
+    <p>Trải đều 12 tuần — mỗi tuần 1 module, liên hệ ngay với buổi tập. Senior PT giải thích bằng ngôn ngữ đời thường, không chuyên ngành.</p>
+  </div>
+
+  <div class="case-grid">
+    <div class="case-card case-xanh">
+      <div class="case-icon">🟢</div>
+      <h4>Case Xanh</h4>
+      <p>Mới tăng cân · BMI 25–30 · Không bệnh nền · Văn phòng</p>
+    </div>
+    <div class="case-card case-vang">
+      <div class="case-icon">🟡</div>
+      <h4>Case Vàng</h4>
+      <p>Gan nhiễm mỡ / Hậu sản · Có bệnh nền nhẹ · Cần điều chỉnh</p>
+    </div>
+    <div class="case-card case-do">
+      <div class="case-icon">🔴</div>
+      <h4>Case Đỏ</h4>
+      <p>Super-obese · BMI ≥35 · Hạn chế vận động nặng · An toàn ưu tiên</p>
+    </div>
+  </div>
+
+  <div class="ibox tip">
+    <div class="ibox-head">📋 Thông tin giáo trình</div>
+    <p><strong>Tài liệu chính:</strong> NASM CPT7 (National Academy of Sports Medicine, 7th Edition)<br>
+    <strong>Tài liệu phụ:</strong> Bye Béo Coach Handbook v1.0 (Chương 13, 16, 26)<br>
+    <strong>Cấu trúc:</strong> Lý thuyết trải đều 12 tuần → Liên hệ thực hành ngay → Stand-out theory points mỗi tuần</p>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ MODULE A: NEAT ══ -->
+<section id="neat">
+  <div class="sec-head">
+    <div class="sec-tag">Module A</div>
+    <h2>NEAT — Hoạt Động Đốt Năng Lượng Ngoài Tập Gym</h2>
+  </div>
+  <p style="margin-bottom:16px;"><em>Non-Exercise Activity Thermogenesis</em> — Nhiệt sinh học từ hoạt động không phải tập luyện</p>
+
+  <div class="card">
+    <div class="card-body">
+      <h3 style="font-size:17px;color:var(--blue);margin-bottom:12px;">NEAT là gì?</h3>
+      <p>NEAT là <strong>tổng năng lượng tiêu hao từ mọi hoạt động thể chất KHÔNG phải tập luyện có chủ đích</strong> — bao gồm đi bộ, đứng, làm việc nhà, rung chân, gõ bàn phím. Theo NASM CPT7, NEAT chiếm <strong>15–30% TDEE</strong> và có thể tăng được mà không cần đến gym.</p>
+
+      <!-- TDEE DONUT CHART -->
+      <div style="margin:24px 0;display:flex;gap:24px;align-items:center;flex-wrap:wrap;">
+        <svg viewBox="0 0 200 200" width="180" height="180" style="flex-shrink:0;">
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#E5E7EB" stroke-width="28"/>
+          <!-- BMR 65% stroke-dasharray 65% of 440 = 286 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1B4F8A" stroke-width="28" stroke-dasharray="286 154" stroke-dashoffset="110" stroke-linecap="butt"/>
+          <!-- TEF 10% = 44 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#0A7A7A" stroke-width="28" stroke-dasharray="44 396" stroke-dashoffset="-176" stroke-linecap="butt"/>
+          <!-- NEAT 20% = 88 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#E8702A" stroke-width="28" stroke-dasharray="88 352" stroke-dashoffset="-220" stroke-linecap="butt"/>
+          <!-- EA 5% = 22 -->
+          <circle cx="100" cy="100" r="70" fill="none" stroke="#1A6B35" stroke-width="28" stroke-dasharray="22 418" stroke-dashoffset="-308" stroke-linecap="butt"/>
+          <text x="100" y="95" text-anchor="middle" font-family="Poppins,sans-serif" font-size="14" font-weight="800" fill="#1B4F8A">TDEE</text>
+          <text x="100" y="115" text-anchor="middle" font-family="Open Sans,sans-serif" font-size="10" fill="#6B7280">Tổng năng lượng</text>
+        </svg>
+        <div style="flex:1;min-width:180px;">
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="width:14px;height:14px;border-radius:3px;background:#1B4F8A;flex-shrink:0;"></span><span style="font-size:13px;"><strong>BMR</strong> — Chuyển hóa cơ bản: <strong>60–70%</strong></span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="width:14px;height:14px;border-radius:3px;background:#E8702A;flex-shrink:0;"></span><span style="font-size:13px;"><strong>NEAT</strong> — Hoạt động ngoài gym: <strong>15–30%</strong></span></div>
+          <div style="display:flex;align-items:center;gap:10px;margin-bottom:8px;"><span style="width:14px;height:14px;border-radius:3px;background:#0A7A7A;flex-shrink:0;"></span><span style="font-size:13px;"><strong>TEF</strong> — Tiêu hoá thức ăn: <strong>8–15%</strong></span></div>
+          <div style="display:flex;align-items:center;gap:10px;"><span style="width:14px;height:14px;border-radius:3px;background:#1A6B35;flex-shrink:0;"></span><span style="font-size:13px;"><strong>EA</strong> — Tập gym: <strong>5–15%</strong></span></div>
+        </div>
+      </div>
+
+      <div class="ibox stretch">
+        <div class="ibox-head">⚡ Tại sao NEAT quan trọng hơn bạn nghĩ?</div>
+        <ul>
+          <li>NEAT thường <strong>gấp 2–3 lần</strong> năng lượng đốt từ tập gym (EA)</li>
+          <li>10.000 bước/ngày ≈ 300–400 kcal — tương đương 1 buổi gym, KHÔNG cần dụng cụ</li>
+          <li>Người béo phì có NEAT thấp hơn người bình thường tới <strong>350 kcal/ngày</strong></li>
+          <li>Tăng NEAT = can thiệp <strong>bền vững nhất</strong> vì tích hợp vào cuộc sống hàng ngày</li>
+          <li>Đi bộ 10–15 phút sau ăn → giảm đường huyết sau ăn <strong>20–30%</strong> (BMJ 2022)</li>
+        </ul>
+      </div>
+
+      <!-- NEAT activities table -->
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">Các hoạt động tạo ra NEAT</h3>
+      <table class="tbl">
+        <tr><th>Nhóm hoạt động</th><th>Ví dụ cụ thể</th><th>Kcal/giờ</th><th>Ghi chú</th></tr>
+        <tr><td>Di chuyển hàng ngày</td><td>Đi bộ, leo cầu thang, đạp xe</td><td style="color:var(--orange);font-weight:700">200–400</td><td>Dễ nhất để tăng</td></tr>
+        <tr><td>Công việc đứng</td><td>Đứng làm việc, bưng bê, đi lại văn phòng</td><td style="color:var(--orange);font-weight:700">100–300</td><td>Văn phòng ngồi = NEAT thấp</td></tr>
+        <tr><td>Việc nhà & sinh hoạt</td><td>Nấu ăn, dọn dẹp, giặt giũ</td><td style="color:var(--orange);font-weight:700">150–250</td><td>Thường bị đánh giá thấp</td></tr>
+        <tr><td>Fidgeting & postural</td><td>Rung chân, ngồi thẳng lưng, đổi tư thế</td><td style="color:var(--orange);font-weight:700">50–150</td><td>Mỗi lần đứng = +metabolic</td></tr>
+        <tr><td>Giải trí nhẹ</td><td>Đi dạo, chơi với trẻ, làm vườn</td><td style="color:var(--orange);font-weight:700">200–350</td><td>Vừa NEAT vừa tâm lý tốt</td></tr>
+      </table>
+
+      <!-- TDEE formula -->
+      <div class="formula">
+        <div class="formula-label">Công thức — TDEE (Total Daily Energy Expenditure)</div>
+        <div class="formula-eq">TDEE = BMR + TEF + EA + NEAT</div>
+        <div class="formula-eq" style="font-size:13px;color:#A8D4FF;">= Chuyển hóa cơ bản + Tiêu hóa thức ăn + Tập gym + Hoạt động hàng ngày</div>
+        <div class="formula-note">
+          <strong style="color:#7AB3E0;">BMR (Basal Metabolic Rate):</strong> Năng lượng cơ thể dùng khi nằm yên — tim đập, thở, duy trì thân nhiệt. Chiếm phần lớn TDEE.<br>
+          <strong style="color:#7AB3E0;">TEF (Thermic Effect of Food):</strong> Năng lượng để tiêu hóa và hấp thụ thức ăn. Protein tốn TEF cao nhất (~25–30%).<br>
+          <strong style="color:#7AB3E0;">Ví dụ thực tế:</strong> Người nặng 80kg, cao 1.70m, 35 tuổi, văn phòng → TDEE ≈ 2.100 kcal. Tăng NEAT thêm 3.000 bước/ngày → +150–200 kcal thêm.
+        </div>
+      </div>
+
+      <!-- NEAT comparison chart -->
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">NEAT vs các khái niệm liên quan</h3>
+      <table class="tbl">
+        <tr><th>Khái niệm (EN)</th><th>Tiếng Việt</th><th>% TDEE</th><th>Có thể tăng không?</th></tr>
+        <tr><td>BMR</td><td>Chuyển hóa cơ bản</td><td>60–70%</td><td>Có (tăng cơ → tăng BMR ~13 kcal/kg cơ)</td></tr>
+        <tr><td>TEF</td><td>Hiệu ứng nhiệt thức ăn</td><td>8–15%</td><td>Có (tăng protein → TEF cao hơn)</td></tr>
+        <tr><td>EA</td><td>Hoạt động tập luyện</td><td>5–15%</td><td>Có (nhưng khó duy trì)</td></tr>
+        <tr><td style="color:var(--orange);">NEAT ★</td><td style="color:var(--orange);font-weight:700">Hoạt động ngoài gym</td><td style="color:var(--orange);font-weight:700">15–30%</td><td style="color:var(--green);font-weight:700">Dễ nhất, bền vững nhất</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ MODULE B: PROGRESSION ══ -->
+<section id="progression">
+  <div class="sec-head">
+    <div class="sec-tag">Module B</div>
+    <h2>Progression Step — Tiến Trình Từng Bước An Toàn</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <h3 style="font-size:16px;color:var(--blue);margin-bottom:12px;">Phân loại cấp độ người tập</h3>
+      <table class="tbl">
+        <tr><th>Cấp độ (EN)</th><th>Đặc điểm</th><th>Thời gian</th><th>Mục tiêu chính</th></tr>
+        <tr><td>Người mới <span style="color:#9CA3AF;font-weight:400;font-size:11px;">(Beginner)</span></td><td>Chưa tập hoặc ngừng &gt;6 tháng. Cơ, tim phổi, khớp chưa thích nghi.</td><td>4–8 tuần</td><td>Kỹ thuật đúng, tránh chấn thương, tạo thói quen</td></tr>
+        <tr><td>Trung cấp <span style="color:#9CA3AF;font-weight:400;font-size:11px;">(Intermediate)</span></td><td>Tập đều 3–6 tháng. Kỹ thuật cơ bản tốt. Có thể tăng tải.</td><td>8–16 tuần</td><td>Tăng thể tích, tải trọng, cải thiện hiệu suất</td></tr>
+        <tr><td>Nâng cao <span style="color:#9CA3AF;font-weight:400;font-size:11px;">(Advanced)</span></td><td>Tập đều &gt;1 năm. Cần periodization đa chu kỳ.</td><td>Indefinite</td><td>Tối ưu hóa, peak phase, thi đấu</td></tr>
+        <tr><td>Đặc biệt <span style="color:#9CA3AF;font-weight:400;font-size:11px;">(Special Pop.)</span></td><td>Béo phì, bệnh nền, chấn thương, sau sinh. Điều chỉnh đặc biệt.</td><td>Theo case</td><td>An toàn tuyệt đối trước hiệu quả</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">7 Tham số tiến trình (Progression Variables)</h3>
+
+      <!-- Visual progression chart -->
+      <div style="background:#F8FAFF;border-radius:10px;padding:20px;margin-bottom:16px;border:1px solid var(--border);">
+        <div style="font-size:12px;color:var(--gray);margin-bottom:14px;font-weight:600;text-transform:uppercase;letter-spacing:1px;">Ngưỡng an toàn tăng mỗi tuần</div>
+        <div style="display:flex;flex-direction:column;gap:10px;">
+          <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span><strong>Load (Tải trọng)</strong></span><span style="color:var(--green);">≤ 5–10%/tuần</span></div><div style="background:#E5E7EB;border-radius:4px;height:10px;overflow:hidden;"><div style="width:10%;height:100%;background:var(--orange);border-radius:4px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span><strong>Reps (Số lần lặp)</strong></span><span style="color:var(--green);">+1–2 reps/tuần</span></div><div style="background:#E5E7EB;border-radius:4px;height:10px;overflow:hidden;"><div style="width:15%;height:100%;background:var(--blue);border-radius:4px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span><strong>Sets (Số hiệp)</strong></span><span style="color:var(--green);">+1 set/2 tuần</span></div><div style="background:#E5E7EB;border-radius:4px;height:10px;overflow:hidden;"><div style="width:8%;height:100%;background:var(--teal);border-radius:4px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span><strong>Rest (Nghỉ giữa hiệp)</strong></span><span style="color:var(--green);">−10–15s/2 tuần</span></div><div style="background:#E5E7EB;border-radius:4px;height:10px;overflow:hidden;"><div style="width:12%;height:100%;background:var(--green);border-radius:4px;"></div></div></div>
+          <div><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:3px;"><span><strong>TUT (Thời gian chịu tải)</strong></span><span style="color:var(--green);">+5–10s/set/2 tuần</span></div><div style="background:#E5E7EB;border-radius:4px;height:10px;overflow:hidden;"><div style="width:10%;height:100%;background:var(--red);border-radius:4px;"></div></div></div>
+        </div>
+      </div>
+
+      <div class="formula">
+        <div class="formula-label">Công thức — TUT Tempo (Time Under Tension)</div>
+        <div class="formula-eq">Tempo = Hạ xuống — Dừng — Đẩy lên</div>
+        <div class="formula-eq" style="font-size:15px;color:#A8D4FF;">Ví dụ: 3-1-2 = Hạ 3 giây · Dừng 1 giây · Đẩy 2 giây = TUT 6s/rep</div>
+        <div class="formula-note">
+          <strong style="color:#7AB3E0;">Tại sao TUT quan trọng?</strong> Cơ thích nghi với tổng thời gian chịu lực, không chỉ số lần lặp. TUT dài hơn = kích thích cơ nhiều hơn ở cùng tải trọng → phù hợp cho người mới chưa thể dùng tải nặng.<br><br>
+          <strong style="color:#7AB3E0;">RPE Scale (Rating of Perceived Exertion):</strong> Thang đo 1–10 về mức độ gắng sức. RPE 1–3: rất nhẹ · RPE 4–6: vừa (khuyến nghị cho người mới) · RPE 7–8: nặng · RPE 9–10: tối đa (KHÔNG cho người mới/bệnh nền)
+        </div>
+      </div>
+
+      <div class="ibox stretch">
+        <div class="ibox-head">📋 Ví dụ: Tiến trình Squat 8 tuần cho người mới</div>
+        <table class="tbl" style="margin:8px 0 0;">
+          <tr><th>Tuần</th><th>Bài tập</th><th>Sets × Reps</th><th>Rest</th><th>TUT</th></tr>
+          <tr><td>1–2</td><td>Bodyweight Squat</td><td>2 × 10</td><td>90s</td><td>2-1-2</td></tr>
+          <tr><td>3–4</td><td>Goblet Squat 4kg</td><td>2 × 12</td><td>75s</td><td>2-1-2</td></tr>
+          <tr><td>5–6</td><td>Goblet Squat 6kg</td><td>3 × 10</td><td>75s</td><td>3-1-2</td></tr>
+          <tr><td>7–8</td><td>DB Squat 8kg</td><td>3 × 12</td><td>60s</td><td>3-1-2</td></tr>
+        </table>
+        <p style="font-size:12px;color:var(--gray);margin-top:8px;">Load tăng 50% nhưng trải đều 8 tuần — mỗi 2 tuần tăng ~2kg = 6% load/giai đoạn → trong ngưỡng an toàn NASM (≤10%/tuần)</p>
+      </div>
+
+      <h3 style="font-size:16px;color:var(--red);margin:20px 0 12px;">⚠️ Dấu hiệu nhận biết Overtraining (Quá tải)</h3>
+      <table class="tbl">
+        <tr><th>Mức độ</th><th>Dấu hiệu cụ thể</th><th>Hành động PT</th></tr>
+        <tr style="background:#FEF2F2"><td style="color:var(--red);font-weight:700">🔴 Cấp tính — DỪNG NGAY</td><td>Đau khớp trong khi tập · Tức ngực · Khó thở bất thường · Chóng mặt · Buồn nôn</td><td><strong>Dừng bài ngay lập tức. Đánh giá y tế nếu cần.</strong></td></tr>
+        <tr style="background:#FFF3E0"><td style="color:var(--orange);font-weight:700">🟡 Mãn tính — Điều chỉnh</td><td>Hiệu suất giảm &gt;1 tuần · DOMS &gt;72h · Mất ngủ · Tâm trạng xấu · HR nghỉ tăng &gt;5bpm</td><td>Giảm volume 30–40% · Tăng recovery · Kiểm tra dinh dưỡng + ngủ</td></tr>
+        <tr style="background:#FEFCE8"><td style="color:var(--yellow);font-weight:700">🟢 Tiềm ẩn — Theo dõi</td><td>Hay mệt sau tập · Giảm động lực · Hay bệnh vặt · Tiêu hoá kém</td><td>Xem lại tổng tải tuần. Tăng ngủ + protein.</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ MODULE C: CORE ══ -->
+<section id="core">
+  <div class="sec-head">
+    <div class="sec-tag">Module C</div>
+    <h2>Core Strength — Sức Mạnh Cơ Lõi</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="margin-bottom:16px;"><strong>Core (LPHC — Lumbo-Pelvic-Hip Complex)</strong> là tập hợp các cơ bao quanh cột sống, xương chậu và hông. Core KHÔNG chỉ là cơ bụng — mà là toàn bộ "trung tâm" kết nối chi trên và chi dưới.</p>
+
+      <!-- LPHC diagram -->
+      <div style="display:flex;gap:24px;flex-wrap:wrap;align-items:center;margin:20px 0;">
+        <svg viewBox="0 0 220 260" width="200" height="240" style="flex-shrink:0;">
+          <!-- Body silhouette simplified -->
+          <ellipse cx="110" cy="60" rx="30" ry="34" fill="#E3F2FD" stroke="#1976D2" stroke-width="1.5"/>
+          <text x="110" y="57" text-anchor="middle" font-size="9" font-family="Poppins" fill="#1565C0" font-weight="700">PHẦN TRÊN</text>
+          <text x="110" y="70" text-anchor="middle" font-size="8" font-family="Open Sans" fill="#1565C0">Thân trên</text>
+          <!-- LPHC core box -->
+          <rect x="72" y="102" width="76" height="70" rx="8" fill="#FFF3E0" stroke="#E8702A" stroke-width="2"/>
+          <text x="110" y="122" text-anchor="middle" font-size="9.5" font-family="Poppins" fill="#C2410C" font-weight="700">LPHC</text>
+          <text x="110" y="138" text-anchor="middle" font-size="8" font-family="Open Sans" fill="#C2410C">Cột sống thắt lưng</text>
+          <text x="110" y="150" text-anchor="middle" font-size="8" font-family="Open Sans" fill="#C2410C">Xương chậu · Hông</text>
+          <text x="110" y="162" text-anchor="middle" font-size="8" font-family="Open Sans" fill="#C2410C">Bụng (Abdomen)</text>
+          <!-- Lower -->
+          <ellipse cx="90" cy="220" rx="22" ry="30" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+          <ellipse cx="130" cy="220" rx="22" ry="30" fill="#E8F5E9" stroke="#388E3C" stroke-width="1.5"/>
+          <text x="90" y="218" text-anchor="middle" font-size="8" font-family="Poppins" fill="#2E7D32" font-weight="700">Chân T</text>
+          <text x="130" y="218" text-anchor="middle" font-size="8" font-family="Poppins" fill="#2E7D32" font-weight="700">Chân P</text>
+          <!-- Arrows -->
+          <line x1="110" y1="94" x2="110" y2="102" stroke="#E8702A" stroke-width="2" marker-end="url(#arr)"/>
+          <line x1="90" y1="172" x2="90" y2="190" stroke="#388E3C" stroke-width="2"/>
+          <line x1="130" y1="172" x2="130" y2="190" stroke="#388E3C" stroke-width="2"/>
+          <defs><marker id="arr" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#E8702A"/></marker></defs>
+          <!-- Label -->
+          <text x="110" y="255" text-anchor="middle" font-size="8" font-family="Open Sans" fill="#6B7280">LPHC = Mắt xích kết nối</text>
+        </svg>
+        <div style="flex:1;min-width:200px;">
+          <div style="background:var(--orange-lt);border-radius:8px;padding:14px;border-left:3px solid var(--orange);">
+            <div style="font-size:12px;font-weight:700;color:var(--orange);margin-bottom:6px;letter-spacing:1px;">LPHC ĐẦY ĐỦ = Lumbo-Pelvic-Hip Complex</div>
+            <p style="font-size:13px;color:var(--text);">L = Lumbar (thắt lưng) · P = Pelvic (xương chậu) · HC = Hip Complex (hông). Đây là "hệ thống trung tâm" — bất kỳ vận động nào của tay hoặc chân đều được bắt đầu và ổn định từ đây.</p>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">3 nhóm cơ tạo nên Core</h3>
+      <table class="tbl">
+        <tr><th>Nhóm (EN)</th><th>Tên tiếng Việt</th><th>Cơ chủ chốt</th><th>Chức năng</th></tr>
+        <tr><td>Local stabilizers</td><td>Cơ ổn định sâu</td><td>TVA, Multifidus, Diaphragm, Pelvic floor</td><td>Co TRƯỚC khi có chuyển động · Giữ áp lực ổ bụng (IAP) · Ổn định vi động cột sống</td></tr>
+        <tr><td>Global stabilizers</td><td>Cơ ổn định ngoài</td><td>Rectus abdominis, Obliques (trong/ngoài), Gluteus medius</td><td>Kiểm soát chuyển động toàn thân · Duy trì tư thế khi vận động</td></tr>
+        <tr><td>Global mobilizers</td><td>Cơ tạo động lực</td><td>Iliopsoas, Hip flexors, Erector spinae, Hamstrings</td><td>Tạo ra và kiểm soát tầm vận động lớn · Truyền lực từ core ra chi</td></tr>
+        <tr><td>Hip complex</td><td>Phức hợp hông</td><td>Gluteus maximus, Gluteus medius, TFL, Piriformis</td><td>Ổn định xương chậu · Ngăn dynamic valgus gối → cực quan trọng béo phì</td></tr>
+      </table>
+
+      <div class="ibox warn">
+        <div class="ibox-head">⚠️ Sarcopenic Obesity — Béo phì + Mất cơ</div>
+        <ul>
+          <li>Béo phì + ít vận động → <strong>mất cơ nhanh hơn</strong> (Sarcopenic Obesity)</li>
+          <li>Thiếu cơ core → lưng dưới chịu tải không đều → <strong>đau lưng mãn tính</strong></li>
+          <li>Mất cơ → giảm BMR → vòng xoáy tăng cân khó kiểm soát</li>
+          <li>Yếu core → tư thế xấu → <strong>tăng nguy cơ chấn thương</strong> với bất kỳ vận động nào</li>
+          <li>Mỗi 1kg cơ tăng → BMR tăng ~<strong>13 kcal/ngày</strong> → sau 5 năm = rất đáng kể</li>
+        </ul>
+      </div>
+
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">Bài tập Core — An toàn theo cấp độ</h3>
+      <table class="tbl">
+        <tr><th>Bài tập</th><th>Nhóm cơ chính</th><th>Phiên bản người mới/béo phì</th><th>Chống chỉ định</th></tr>
+        <tr><td>Plank</td><td>TVA, Multifidus, Glutes</td><td>Plank quỳ → Plank nửa thân → Plank đầy đủ</td><td>Thoát vị đĩa đệm cấp · THA chưa kiểm soát</td></tr>
+        <tr><td>Dead Bug</td><td>TVA, Multifidus, Hip flexors</td><td>Chỉ duỗi 1 chân, giữ lưng sát sàn</td><td>Phù hợp hậu sản có diastasis recti</td></tr>
+        <tr><td>Bird Dog</td><td>Multifidus, Glutes, Shoulders</td><td>Đầu gối sàn, sau mới thêm tay đối diện</td><td>Không khi đau khớp háng cấp</td></tr>
+        <tr><td>Glute Bridge</td><td>Glutes, Hamstrings, TVA</td><td>2 chân → Single leg khi đã vững</td><td>Phù hợp đau lưng nhẹ-vừa (McGill)</td></tr>
+        <tr><td>Pallof Press</td><td>Obliques, TVA (anti-rotation)</td><td>Dây kháng lực nhẹ, đứng gần điểm neo</td><td>Thoát vị L4-L5 thận trọng</td></tr>
+        <tr><td style="color:var(--green);font-weight:700">McGill Big 3 ★</td><td>Core tổng thể</td><td>Modified Curl-up + Side Plank + Bird Dog</td><td><strong>Chuẩn vàng cho đau lưng mãn tính</strong></td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ MODULE D: WEARABLE ══ -->
+<section id="wearable">
+  <div class="sec-head">
+    <div class="sec-tag">Module D</div>
+    <h2>Tracking &amp; Wearable Device — Thiết Bị Theo Dõi</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="margin-bottom:16px;">Thiết bị đeo tay thông minh dùng cảm biến theo dõi dữ liệu sinh lý theo thời gian thực. <strong>Mục đích chính: theo dõi xu hướng (trend)</strong>, không phải đo lường tuyệt đối chính xác.</p>
+
+      <table class="tbl">
+        <tr><th>Cấp độ</th><th>Thiết bị tiêu biểu</th><th>Chỉ số đo được</th><th>Phù hợp cho</th></tr>
+        <tr><td>Tối thiểu (0đ)</td><td>Smartphone (Samsung Health, Google Fit)</td><td>Bước chân · Ước lượng calo · Thời gian di chuyển</td><td>Khách mới · Ngân sách hạn chế</td></tr>
+        <tr><td>Cơ bản (1–3tr)</td><td>Xiaomi Mi Band · Fitbit Inspire · Garmin Vívosmart</td><td>HR liên tục · Bước chân chính xác · SpO2 · Sleep cơ bản</td><td>Khách cam kết theo dõi 90 ngày+</td></tr>
+        <tr><td>Trung cấp (3–8tr)</td><td>Apple Watch SE · Samsung Galaxy Watch · Garmin Forerunner</td><td>HR zones · VO2max ước tính · ECG · Stress · Sleep stages</td><td>Khách giai đoạn 2+ · Muốn data chi tiết</td></tr>
+        <tr><td>Cao cấp (8–20tr+)</td><td>Garmin Fenix · Whoop 4.0 · Polar Vantage</td><td>HRV · Recovery score · Training load · Advanced sleep stages</td><td>Vận động viên · Khách premium</td></tr>
+      </table>
+
+      <!-- HR Zones -->
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">5 Vùng Nhịp Tim (Heart Rate Zones)</h3>
+      <div class="formula">
+        <div class="formula-label">Công thức — HR Max &amp; HR Zones</div>
+        <div class="formula-eq">HR Max = 220 − Tuổi</div>
+        <div class="formula-eq" style="font-size:14px;color:#A8D4FF;">Ví dụ: 35 tuổi → HR Max = 220 − 35 = 185 bpm</div>
+        <div class="formula-note">
+          <strong style="color:#7AB3E0;">HR Max (Nhịp tim tối đa):</strong> Tốc độ tim đập nhanh nhất có thể. Công thức 220−tuổi là ước tính, sai số ±10–12 bpm.<br>
+          <strong style="color:#7AB3E0;">HR Zone:</strong> Phần trăm HR Max. Zone càng cao = cường độ càng mạnh = yêu cầu tim phổi nhiều hơn.<br>
+          <strong style="color:#7AB3E0;">Talk Test — Kiểm tra nhanh:</strong> Khách nói chuyện được = Z1–Z2 (an toàn). Chỉ nói được từng từ = Z3–Z4 (thận trọng). Không nói được = Z5 (KHÔNG cho người mới).
+        </div>
+      </div>
+      <div class="hr-zones">
+        <div class="hz hz1"><div class="zn">Z1</div><div class="zp">50–60%</div><div class="zl">Khởi động nhẹ</div></div>
+        <div class="hz hz2"><div class="zn">Z2</div><div class="zp">60–70%</div><div class="zl">Đốt mỡ cơ bản</div></div>
+        <div class="hz hz3"><div class="zn">Z3</div><div class="zp">70–80%</div><div class="zl">Aerobic vừa</div></div>
+        <div class="hz hz4"><div class="zn">Z4</div><div class="zp">80–90%</div><div class="zl">Ngưỡng lactate</div></div>
+        <div class="hz hz5"><div class="zn">Z5</div><div class="zp">90–100%</div><div class="zl">Tối đa — HIIT</div></div>
+      </div>
+
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">Đọc các chỉ số chính</h3>
+      <table class="tbl">
+        <tr><th>Chỉ số (EN)</th><th>Tiếng Việt</th><th>Giá trị bình thường</th><th>Cảnh báo cần xử lý</th></tr>
+        <tr><td>RHR</td><td>Nhịp tim nghỉ</td><td>60–100 bpm (thường) · 40–60 bpm (athlete)</td><td>RHR &gt;100 liên tục → referral tim mạch</td></tr>
+        <tr><td>SpO2</td><td>Nồng độ oxy máu</td><td>95–100%</td><td>&lt;90% khi nghỉ → đánh giá y tế ngay (OSA?)</td></tr>
+        <tr><td>Step count</td><td>Bước chân/ngày</td><td>Tối thiểu 5.000 · Mục tiêu 10.000</td><td>Giảm đột ngột &gt;30% không rõ lý do → hỏi khách</td></tr>
+        <tr><td>Sleep duration</td><td>Tổng giờ ngủ</td><td>7–9h người lớn</td><td>&lt;6h/đêm liên tục → sửa ngủ trước tăng tập</td></tr>
+        <tr><td>HRV</td><td>Biến thiên nhịp tim</td><td>30–100ms (tùy người) · Cao = phục hồi tốt</td><td>HRV giảm &gt;20% vs baseline → giảm intensity</td></tr>
+      </table>
+
+      <div class="ibox warn">
+        <div class="ibox-head">⚠️ Giới hạn độ chính xác Wearable — PT phải biết</div>
+        <ul>
+          <li>Wearable đo <strong>xu hướng</strong>, không đo tuyệt đối — sai số 10–20% là bình thường</li>
+          <li>Calories burned: sai số <strong>±20–30%</strong> — KHÔNG dùng để tính caloric deficit chính xác</li>
+          <li>HR khi tập: kém chính xác khi chuyển động cổ tay nhiều (boxing, kettlebell)</li>
+          <li>SpO2 ban đêm: hữu ích nhất khi phát hiện pattern bất thường (OSA screening)</li>
+          <li><strong>KHÔNG để khách ám ảnh số liệu hàng ngày</strong> — tạo stress không cần thiết</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ MODULE E: CONTRA-INDICATIONS ══ -->
+<section id="contra">
+  <div class="sec-head">
+    <div class="sec-tag">Module E</div>
+    <h2>Chống Chỉ Định Vận Động (Contra-indications)</h2>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <p style="margin-bottom:16px;"><strong>Chống chỉ định</strong> là tình trạng sức khỏe khiến một bài tập, hình thức tập hoặc cường độ trở nên KHÔNG AN TOÀN hoặc CÓ HẠI. PT phải đánh giá contra-indications <strong>TRƯỚC</strong> khi thiết kế chương trình (NASM CPT7 Section 1 + ACSM 2021).</p>
+
+      <h3 style="font-size:16px;color:var(--blue);margin-bottom:12px;">3 cấp độ chống chỉ định</h3>
+      <table class="tbl">
+        <tr><th>Mức độ</th><th>Định nghĩa</th><th>Ví dụ</th><th>Hành động PT</th></tr>
+        <tr class="cc-abs"><td>🔴 Tuyệt đối (Absolute)</td><td>KHÔNG tập dưới bất kỳ hình thức nào cho đến khi có clearance y tế</td><td>Nhồi máu cơ tim &lt;6 tháng · Suy tim mất bù · Gãy xương chưa lành · Thoát vị đĩa đệm cấp</td><td><strong>DỪNG NGAY. Từ chối nhận case đến khi có giấy clearance bác sĩ.</strong></td></tr>
+        <tr class="cc-rel"><td>🟡 Tương đối (Relative)</td><td>CÓ THỂ tập với điều chỉnh — cường độ thấp, bài thay thế an toàn, theo dõi sát</td><td>THA có kiểm soát · Tiền tiểu đường · Đau khớp mãn tính nhẹ · Béo phì độ 2</td><td>Điều chỉnh plan. Tránh bài nguy cơ cao. Theo dõi triệu chứng liên tục.</td></tr>
+        <tr class="cc-cau"><td>🟢 Chú ý (Caution)</td><td>Tập được nhưng PT theo dõi đặc biệt và có kế hoạch dự phòng</td><td>Thuốc beta-blocker · Hen suyễn kiểm soát tốt · Viêm khớp nhẹ</td><td>Biết triệu chứng cần dừng. Luôn có emergency plan.</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;color:var(--blue);margin:20px 0 12px;">Bài tập thay thế an toàn theo bệnh nền</h3>
+      <table class="tbl">
+        <tr><th>Bệnh nền</th><th>TRÁNH</th><th>THAY THẾ AN TOÀN</th><th>Mức CC</th></tr>
+        <tr><td>Tim mạch</td><td>HIIT · Valsalva · Tập cực nặng · Lạnh đột ngột</td><td>Đi bộ Z1–Z2 · Đạp xe nhẹ · Bơi nhẹ · Strength kiểm soát HR</td><td style="color:var(--orange);">Tương đối</td></tr>
+        <tr><td>THA &gt;140/90</td><td>Valsalva (nín thở khi tập) · Headstand · Leg press tải cao</td><td>Đi bộ · Strength nhẹ thở đều · Yoga nhẹ</td><td style="color:var(--orange);">Tương đối</td></tr>
+        <tr><td>Đái tháo đường</td><td>HIIT cực cao (nguy cơ hạ đường) · Tập bụng đói</td><td>Đi bộ sau ăn 15–20ph · Cardio vừa · Strength 2x/tuần</td><td style="color:var(--yellow);">Chú ý</td></tr>
+        <tr><td>Thoát vị đĩa đệm</td><td>Deadlift · Good Morning · Sit-up cũ · Cúi gập có tải</td><td>McGill Big 3 · Glute Bridge · Dead Bug · Máy có tựa lưng</td><td style="color:var(--red);">Tuyệt đối (cấp) / Tương đối (mãn)</td></tr>
+        <tr><td>Đau gối</td><td>Deep squat · Lunges có tải · Chạy bộ (giai đoạn viêm)</td><td>Leg press góc rộng · Đạp xe · Bơi · Glute Bridge</td><td style="color:var(--orange);">Tương đối</td></tr>
+        <tr><td>Hậu sản &lt;6 tháng</td><td>Sit-up/Crunch · Plank chuẩn (diastasis?) · Cường độ cao</td><td>Kegel · Diaphragmatic breathing · Dead Bug nhẹ · Đi bộ</td><td style="color:var(--orange);">Tương đối</td></tr>
+        <tr><td>Super-obese BMI&gt;35</td><td>Chạy bộ đất cứng · Jumping jacks · High-impact aerobics</td><td>Đi bộ chậm · Cardio nước · Strength ghế/tường</td><td style="color:var(--orange);">Tương đối</td></tr>
+        <tr><td>Gan nhiễm mỡ (NAFLD)</td><td>Tập đói kéo dài · Cường độ cực cao liên tục</td><td>Đi bộ sau ăn · Cardio Z1–Z2 · Strength vừa</td><td style="color:var(--yellow);">Chú ý</td></tr>
+      </table>
+
+      <div class="ibox warn">
+        <div class="ibox-head">🚨 QUY TẮC VÀNG — Không bao giờ vi phạm</div>
+        <ul>
+          <li>Không có bài tập nào PHẢI làm — <strong>luôn có phương án thay thế an toàn hơn</strong></li>
+          <li>Khi nghi ngờ → Hỏi thêm → Giảm cường độ → Tham khảo y tế</li>
+          <li>PT không phải bác sĩ — không chẩn đoán, không ép tập khi có CC tuyệt đối</li>
+          <li>Gặp Red Flags trong buổi tập → <strong>DỪNG NGAY, không cố tiếp tục</strong></li>
+          <li>Tài liệu hóa tất cả — nếu sự cố không có ghi chép, PT chịu trách nhiệm pháp lý</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ CASE XANH ══ -->
+<section id="xanh">
+  <div class="ch-banner" style="background:#1565C0;">
+    <div class="ch-badge" style="background:#2196F3;">CHƯƠNG TRÌNH A</div>
+    <h2>Case Xanh — Mới Tăng Cân</h2>
+    <p>BMI 25–30 · Không bệnh nền · Văn phòng · Tiến từ NEAT → Strength → Cardio nâng → Performance test</p>
+  </div>
+
+  <div class="ibox good">
+    <div class="ibox-head">👤 Đặc điểm Case Xanh</div>
+    <ul>
+      <li>BMI 25–30, mới tăng cân 6–18 tháng. Chưa có bệnh nền nặng.</li>
+      <li>Khả năng vận động tốt. Chưa có thói quen tập gym. Ngồi nhiều (văn phòng).</li>
+      <li>Mục tiêu: Giảm cân · Tăng năng lượng · Hình thành thói quen vận động bền vững.</li>
+      <li>Ưu tiên: NEAT trước → Strength nền → Cardio Z1–Z2 → Dần tăng cường độ.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="week-tbl">
+        <tr><th style="width:44px;">Tuần</th><th style="min-width:160px;">Lý thuyết trọng tâm</th><th>Buổi 1 (60 phút)</th><th>Buổi 2 (60 phút)</th><th style="min-width:110px;">KPI tuần</th><th style="min-width:90px;">Stand-out Point</th></tr>
+        <tr><td class="wk-num">T1</td><td class="theory-cell">NEAT & TDEE: Tầm quan trọng NEAT vs EA</td><td>Đánh giá nền + NEAT audit. Đi bộ 20ph + Dynamic warm-up + Core intro (Dead Bug 2×10)</td><td>Wearable setup. Đi bộ nhanh 30ph Z1 + Breathing drill 15ph + Flexibility 15ph</td><td class="kpi-cell">Bước chân ≥4.000/ngày · Wearable 7/7</td><td class="point-cell">NEAT vs EA</td></tr>
+        <tr><td class="wk-num">T2</td><td class="theory-cell">NEAT nâng cao: 5 thói quen · Step Ladder</td><td>Strength A: Squat BW 3×12 + Push-up tường 3×10 + Plank quỳ 3×20s + Đi bộ 20ph</td><td>Cardio Z1–Z2 40ph + NEAT challenge + Flexibility 20ph</td><td class="kpi-cell">Bước chân ≥5.000 · 3 NEAT habits/ngày</td><td class="point-cell">Step Ladder</td></tr>
+        <tr><td class="wk-num">T3</td><td class="theory-cell">Progression: Progressive overload · OPT Phase 1</td><td>Strength B: Goblet Squat 4kg 3×12 + Push-up 30° 3×10 + Glute Bridge 3×15 + Row dây 3×12</td><td>Cardio Z2 35ph + Core: Dead Bug 3×8/bên + Bird Dog 3×8/bên + Flexibility</td><td class="kpi-cell">+1.000 bước/tuần · HR &lt;Z3 cardio</td><td class="point-cell">Progressive overload</td></tr>
+        <tr><td class="wk-num">T4</td><td class="theory-cell">Progression: Load/Reps/Sets/TUT · RPE scale</td><td>Strength A tăng tải: Squat DB 6kg 3×12 + Push-up chuẩn 3×8 + Plank 3×25s + Hip Hinge 3×12</td><td>Cardio interval Z2/Z3 (3ph+1ph) × 6 + Core Pallof Press + Stretch</td><td class="kpi-cell">Bước chân ≥6.000 · RPE 4–6 khi tập</td><td class="point-cell">RPE & TUT</td></tr>
+        <tr><td class="wk-num">T5</td><td class="theory-cell">Core Strength: LPHC anatomy · Sarcopenia</td><td>Core focus: McGill Curl-up 3×8 + Side Plank quỳ 3×20s + Bird Dog 3×10/bên + Glute Bridge single 3×10</td><td>Strength B nâng: DB Row 8kg + DB RDL 8kg + Goblet Squat 6kg + Cardio 20ph</td><td class="kpi-cell">Core mỗi buổi · Bước chân 7.000</td><td class="point-cell">Sarcopenia prevention</td></tr>
+        <tr><td class="wk-num">T6</td><td class="theory-cell">Core nâng: Local vs Global stabilizers · Anti-rotation</td><td>Full body A: Squat 8kg 3×12 + Push-up 3×10 + Pallof Press 3×12 + RDL 8kg 3×12</td><td>Cardio Z2 30ph + Core circuit (Plank 3×30s + Dead Bug + Bird Dog) + Stretch</td><td class="kpi-cell">Plank ≥30s · Push-up ≥8 lần</td><td class="point-cell">Anti-rotation core</td></tr>
+        <tr><td class="wk-num">T7</td><td class="theory-cell">Wearable: HR zones · Sleep tracking cơ bản</td><td>Strength B: DB Row 10kg 3×12 + RDL 10kg + Goblet Squat 8kg 3×15 + Core nâng cấp</td><td>Cardio HR controlled (wearable) 35ph Z2 + Sleep data review + Flexibility</td><td class="kpi-cell">HR trong Z2 ≥80% · Ghi sleep 7 ngày</td><td class="point-cell">HR zone wearable</td></tr>
+        <tr><td class="wk-num">T8</td><td class="theory-cell">Wearable nâng: SpO2 · Stress · Body comp</td><td>Strength A nâng: Squat 10kg + Incline Push-up + Pallof Press + Hip Hinge 10kg</td><td>HIIT nhẹ Z2–Z3 25ph + InBody/BIA + Progress photo protocol</td><td class="kpi-cell">Bước chân 8.000–9.000 · Body comp</td><td class="point-cell">Progress tracking</td></tr>
+        <tr><td class="wk-num">T9</td><td class="theory-cell">Contra-indications: CC tương đối vs tuyệt đối</td><td>Strength tổng hợp A+B: Superset Squat+Row 4×10 + Push-up+RDL 4×10 + Core circuit</td><td>Cardio Z2–Z3 30ph + Overhead squat assessment + Flexibility 20ph</td><td class="kpi-cell">Mobility assessment · Không overtraining</td><td class="point-cell">Absolute vs relative CC</td></tr>
+        <tr><td class="wk-num">T10</td><td class="theory-cell">CC nâng: Bài tập nguy cơ · Red flags</td><td>Power nhẹ: Jump squat 3×8 + Medicine ball slam 3×8 + Agility ladder</td><td>Cardio Z3 interval 20ph + Strength B nâng: Row 12kg + RDL 12kg + Core advanced</td><td class="kpi-cell">Bước chân 9.000–10.000 · RPE 6–7</td><td class="point-cell">Red flag recognition</td></tr>
+        <tr><td class="wk-num">T11</td><td class="theory-cell">Tổng hợp: NEAT + Progression + Core + Wearable</td><td>Full body + NEAT audit 12 tuần + Đánh giá tiến bộ toàn diện</td><td>Cardio finisher Z2 40ph + Core mastery: Plank 60s + Dead Bug 15/bên + Bird Dog 15/bên</td><td class="kpi-cell">5 KPI check · Hoàn thành tracker</td><td class="point-cell">Integration week</td></tr>
+        <tr><td class="wk-num">T12</td><td class="theory-cell">Đánh giá cuối: 5 module · Body comp · Performance</td><td>Performance test: Max Squat BW · Push-up max · Plank max · 1-mile walk time</td><td>Final body comp + Progress photo + Thiết lập plan Phase 2</td><td class="kpi-cell">So sánh T1 vs T12 · Lập plan duy trì</td><td class="point-cell">Full program review</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ CASE VÀNG ══ -->
+<section id="vang">
+  <div class="ch-banner" style="background:#B45309;">
+    <div class="ch-badge" style="background:#F59E0B;color:#1C1917;">CHƯƠNG TRÌNH B</div>
+    <h2>Case Vàng — Gan Nhiễm Mỡ / Hậu Sản</h2>
+    <p>Bệnh nền nhẹ · Medical clearance trước khi tập · Tăng tải CỰC thận trọng · Theo dõi sát</p>
+  </div>
+
+  <div class="ibox tip">
+    <div class="ibox-head">👤 Đặc điểm Case Vàng</div>
+    <ul>
+      <li>Gan nhiễm mỡ (NAFLD) hoặc hậu sản &lt;18 tháng. BMI 27–35.</li>
+      <li>Có thể đang dùng thuốc. Cần <strong>medical clearance</strong> trước khi tập.</li>
+      <li>Mục tiêu: Cải thiện bệnh nền qua vận động. Phục hồi sau sinh. Tăng năng lượng.</li>
+      <li><strong>Đặc biệt hậu sản:</strong> kiểm tra diastasis recti TRƯỚC bất kỳ core exercise nào.</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="week-tbl">
+        <tr><th>Tuần</th><th>Lý thuyết trọng tâm</th><th>Buổi 1 (60 phút)</th><th>Buổi 2 (60 phút)</th><th>KPI tuần</th><th>Stand-out Point</th></tr>
+        <tr><td class="wk-num">T1</td><td class="theory-cell">NEAT & Bệnh nền: Lợi ích đi bộ sau ăn giảm đường huyết</td><td>Đánh giá an toàn + clearance. Đi bộ nhẹ 10ph Z1 + Breathing 15ph + Pelvic tilt/Gentle stretch</td><td>Wearable setup. Đi bộ 20ph + NEAT habits + Flexibility nhẹ toàn thân</td><td class="kpi-cell">Bước chân ≥3.500 · HR &lt;Z2 toàn bộ</td><td class="point-cell">NEAT sau ăn 10ph</td></tr>
+        <tr><td class="wk-num">T2</td><td class="theory-cell">NEAT ứng dụng: 5 thói quen NEAT cho người bận</td><td>Core nhẹ: Dead Bug 2×8 + Pelvic tilt 2×15 + Glute Bridge 2×12 + Đi bộ 20ph</td><td>Cardio Z1 25ph + Breathing + NEAT review tuần</td><td class="kpi-cell">Bước chân ≥4.500 · 3 NEAT habits</td><td class="point-cell">Bệnh nền & NEAT</td></tr>
+        <tr><td class="wk-num">T3</td><td class="theory-cell">Progression an toàn: Load thấp, reps cao, kỹ thuật ưu tiên</td><td>Strength nhẹ A: Squat tường 3×12 + Push-up tường 3×12 + Plank quỳ 2×20s + Hip Hinge BW</td><td>Cardio nhẹ Z1–Z2 25ph + Core Bird Dog + Dead Bug + Stretch</td><td class="kpi-cell">Bước chân ≥5.000 · RPE max 4/10</td><td class="point-cell">5%/2 tuần max load</td></tr>
+        <tr><td class="wk-num">T4</td><td class="theory-cell">Progression: Wearable theo dõi HR khi tập</td><td>Strength B nhẹ: DB Row 4kg 3×12 + RDL BW 3×12 + Goblet Squat 2kg 3×12 + Core</td><td>Cardio Z1–Z2 HR controlled 30ph + Live HR wearable + Flexibility 20ph</td><td class="kpi-cell">HR dưới Z3 · Sleep ≥7h/đêm</td><td class="point-cell">Wearable + bệnh nền</td></tr>
+        <tr><td class="wk-num">T5</td><td class="theory-cell">Core & NAFLD/Hậu sản: Sarcopenia · Cơ với chuyển hóa</td><td>Core focus: McGill Big 3 nhẹ + Glute Bridge single 3×10 + Pelvic tilt + Kegel (hậu sản)</td><td>Strength A nhẹ nâng: Squat tường → BW + Push-up 45° + Cardio 20ph</td><td class="kpi-cell">Core mỗi buổi · Bước chân 6.000</td><td class="point-cell">Sarcopenia & NAFLD</td></tr>
+        <tr><td class="wk-num">T6</td><td class="theory-cell">Core nâng nhẹ: Bài core an toàn NAFLD và hậu sản</td><td>Strength B nâng: DB Row 6kg + RDL 4kg + Goblet Squat 4kg + Core</td><td>Cardio Z2 30ph + Plank quỳ 3×25s + Pallof Press nhẹ + Stretch</td><td class="kpi-cell">Không đau lưng · Push-up ≥8</td><td class="point-cell">Anti-gravity core</td></tr>
+        <tr><td class="wk-num">T7</td><td class="theory-cell">Wearable: Sleep tracking · HRV phục hồi hậu sản</td><td>Full body nhẹ: Squat BW + Push-up 30° + Row dây + RDL nhẹ + Core</td><td>Cardio HR controlled 30ph Z1–Z2 + Sleep data review + Progress tracking</td><td class="kpi-cell">Sleep score track · HR Z2 ≥25ph/buổi</td><td class="point-cell">Sleep & recovery wearable</td></tr>
+        <tr><td class="wk-num">T8</td><td class="theory-cell">Wearable: Trend 8 tuần · Điều chỉnh plan theo data</td><td>Strength A nâng thận trọng: Squat DB 4kg + Push-up chuẩn 3×8 + Core circuit</td><td>Cardio nhẹ + InBody/BIA + Progress photo + Điều chỉnh plan theo số liệu</td><td class="kpi-cell">Body comp T1→T8 · Bước chân 7.000–8.000</td><td class="point-cell">Data-driven adjustment</td></tr>
+        <tr><td class="wk-num">T9</td><td class="theory-cell">CC & Bệnh nền: CC cho NAFLD · Hậu sản · Bài TUYỆT ĐỐI tránh</td><td>Strength tổng hợp: Superset Squat BW + Row dây 4×12 + Hip hinge + Push-up</td><td>Cardio Z2 30ph + Mobility check (Overhead squat, Thomas test, diastasis check) + Stretch</td><td class="kpi-cell">Mobility assessment · Không overtraining</td><td class="point-cell">CC hậu sản/NAFLD</td></tr>
+        <tr><td class="wk-num">T10</td><td class="theory-cell">CC thực hành: Red Flags · Protocol khi gặp red flag</td><td>Strength B nâng: DB Row 8kg + RDL 6kg + Goblet Squat 6kg + Core advanced</td><td>Cardio Z2–Z3 nhẹ (chỉ 10ph Z3 max) + Wearable HR zone analysis + Stretch</td><td class="kpi-cell">RPE 5–6 bình thường · Red flag checklist</td><td class="point-cell">Red flag protocol</td></tr>
+        <tr><td class="wk-num">T11</td><td class="theory-cell">Tổng hợp: Lộ trình dài hạn cho bệnh nền · Maintenance</td><td>Full body + NEAT audit 12 tuần + Điều chỉnh thói quen lâu dài</td><td>Cardio Z2 35ph + Core finisher + Body comp + Sleep trend review 12 tuần</td><td class="kpi-cell">5 KPI · Recovery protocol hoàn thành</td><td class="point-cell">Maintenance planning</td></tr>
+        <tr><td class="wk-num">T12</td><td class="theory-cell">Final & Referral: Khi nào cần tái khám · Lab check</td><td>Performance test nhẹ: 6-min walk test + Push-up count + Plank hold</td><td>Final body comp + Progress photo + Plan Phase 2 + Referral checklist lab</td><td class="kpi-cell">T1→T12 · Medical referral list</td><td class="point-cell">Referral decision tree</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ CASE ĐỎ ══ -->
+<section id="do">
+  <div class="ch-banner" style="background:#991B1B;">
+    <div class="ch-badge" style="background:#EF4444;">CHƯƠNG TRÌNH C</div>
+    <h2>Case Đỏ — Super-Obese (BMI ≥35)</h2>
+    <p>Bảo vệ khớp tuyệt đối · Không chạy bộ · Không HIIT · NEAT là toàn bộ giai đoạn đầu</p>
+  </div>
+
+  <div class="ibox warn">
+    <div class="ibox-head">👤 Đặc điểm Case Đỏ — Đọc kỹ trước khi thiết kế</div>
+    <ul>
+      <li>BMI ≥35. <strong>PHẢI đánh giá offline tại Trung tâm</strong> trước khi bắt đầu.</li>
+      <li>Mục tiêu 3 tháng đầu: <strong>TẠO THÓI QUEN, không giảm cân nhanh</strong>. Giảm 3–5% cân.</li>
+      <li><strong>TUYỆT ĐỐI không:</strong> Chạy bộ đất cứng · Jumping · HIIT · Squat sâu khi đau gối.</li>
+      <li>Xem xét OSA screening (SpO2 ban đêm). Giày tập tốt là bắt buộc trước khi bắt đầu.</li>
+      <li>Sau 6–12 tháng không cải thiện → tư vấn bác sĩ về GLP-1 (KHÔNG tự đề xuất).</li>
+    </ul>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="week-tbl">
+        <tr><th>Tuần</th><th>Lý thuyết trọng tâm</th><th>Buổi 1 (60 phút)</th><th>Buổi 2 (60 phút)</th><th>KPI tuần</th><th>Stand-out Point</th></tr>
+        <tr><td class="wk-num">T1</td><td class="theory-cell">NEAT & Super-obese: Tại sao chỉ NEAT giai đoạn đầu</td><td>Assessment offline: Đứng dậy ghế × 5 · Đứng 1 chân 10s · Đi 3m. Đi bộ 10ph siêu chậm Z1</td><td>Wearable setup. Đi bộ 10ph + Breathing 20ph + Seated March 2×10 + Chair stretch</td><td class="kpi-cell">Bước chân ≥2.000 · 0 đau khớp</td><td class="point-cell">NEAT = toàn bộ giai đoạn đầu</td></tr>
+        <tr><td class="wk-num">T2</td><td class="theory-cell">NEAT thực hành: Đứng dậy 55ph · Đi bộ sau ăn</td><td>Strength ghế A: Chair Squat 2×8 + Wall Push-up 2×10 + Seated Row dây 2×10</td><td>Đi bộ chậm 15ph Z1 + NEAT habit review + Flexibility ngồi ghế 20ph</td><td class="kpi-cell">Bước chân ≥2.500 · 2 NEAT habits</td><td class="point-cell">NEAT habits mọi lúc</td></tr>
+        <tr><td class="wk-num">T3</td><td class="theory-cell">Progression SIÊU thận trọng: Kỹ thuật là số 1</td><td>Strength ghế B: Glute Bridge nằm sàn 2×10 + Dead Bug nhẹ 2×6/bên + Seated March 2×10</td><td>Đi bộ 20ph Z1 + Cardio nước (aqua walking) nếu có + Stretch ngồi</td><td class="kpi-cell">Bước chân ≥3.000 · RPE max 3/10</td><td class="point-cell">5%/2 tuần max</td></tr>
+        <tr><td class="wk-num">T4</td><td class="theory-cell">Progression: Ghi log tiến trình · Đếm reps · Đo thời gian</td><td>Chair Squat → BW Squat nhẹ 2×10 (nếu gối OK) + Push-up tường 3×10 + Row dây 3×10</td><td>Đi bộ 25ph Z1 + HR tracking (wearable) + Flexibility + Sleep discussion</td><td class="kpi-cell">Bước chân ≥3.500 · Log tiến trình 100%</td><td class="point-cell">Systematic progression log</td></tr>
+        <tr><td class="wk-num">T5</td><td class="theory-cell">Core & Super-obese: Nguy cơ teo cơ · Core PHẢI làm an toàn</td><td>Core an toàn: Pelvic tilt 3×15 + Glute Bridge 3×12 + Dead Bug đơn giản 2×6 + Đi bộ</td><td>Strength A nhẹ nâng + Đi bộ 25–30ph + Flexibility toàn thân 20ph</td><td class="kpi-cell">Core mỗi buổi · Bước chân ≥4.000</td><td class="point-cell">Sarcopenia risk</td></tr>
+        <tr><td class="wk-num">T6</td><td class="theory-cell">Core: Từ sàn → tường → đứng · Progression core đặc biệt</td><td>Core nâng: Plank tường 3×20s + Bird Dog quỳ 3×8/bên + Glute Bridge single 3×8</td><td>Cardio nước 30ph / Đi bộ + Strength B nhẹ: Row dây + RDL BW + Stretch</td><td class="kpi-cell">Plank tường 20s · Core progression rõ</td><td class="point-cell">Wall→floor plank</td></tr>
+        <tr><td class="wk-num">T7</td><td class="theory-cell">Wearable: SpO2 khi ngủ · Bước chân trend · OSA risk</td><td>Strength A nâng nhẹ: BW Squat 3×12 + Push-up tường 3×12 + Row dây 3×15 + Core circuit</td><td>Đi bộ 30–35ph Z1–Z2 + SpO2 sleep data review + OSA screening discussion + Stretch</td><td class="kpi-cell">SpO2 đêm ≥95% · HR Z1–Z2 khi đi bộ</td><td class="point-cell">SpO2 & OSA risk</td></tr>
+        <tr><td class="wk-num">T8</td><td class="theory-cell">Wearable: Body comp super-obese · Vòng eo là KPI số 1</td><td>Full body nhẹ: BW Squat + Push-up tường + Row dây + RDL BW + Core</td><td>Cardio 30ph + Đo vòng eo + InBody nếu có + Progress photo + Điều chỉnh plan</td><td class="kpi-cell">Vòng eo trend · Bước chân ≥5.000</td><td class="point-cell">Waist = KPI số 1</td></tr>
+        <tr><td class="wk-num">T9</td><td class="theory-cell">CC & Super-obese: Bài TUYỆT ĐỐI không làm · Bảo vệ khớp</td><td>Strength tổng hợp an toàn: Chair/BW Squat + Push-up tường + Row + Core</td><td>Đi bộ 35ph + Mobility nhẹ (tầm vận động khớp hông, gối) + Stretch</td><td class="kpi-cell">Mobility assessment · Không đau khớp</td><td class="point-cell">High-risk exercise list</td></tr>
+        <tr><td class="wk-num">T10</td><td class="theory-cell">CC thực hành: Joint protection · Giày tập và bề mặt</td><td>BW Squat 3×15 + Push-up tường/30° 3×12 + Row 3×15 + RDL nhẹ + Core nâng</td><td>Cardio 30ph Z1 + Wearable review 10 tuần + Đánh giá giày tập + Stretch</td><td class="kpi-cell">Không overtraining · Bước chân 6.000</td><td class="point-cell">Joint protection equipment</td></tr>
+        <tr><td class="wk-num">T11</td><td class="theory-cell">Tổng hợp: Hành trình 12 tuần · Milestones · Lộ trình 12 tháng</td><td>Full body + NEAT audit + Điều chỉnh lâu dài + Thói quen bền vững</td><td>Cardio 30–35ph + Core finisher + Body comp cuối + Sleep trend review</td><td class="kpi-cell">5 KPI · 12-month roadmap draft</td><td class="point-cell">Long-term sustainability</td></tr>
+        <tr><td class="wk-num">T12</td><td class="theory-cell">Final & Medical: GLP-1 awareness · Lab tầm soát · Phase 2</td><td>Performance test nhẹ: 6-min walk test + Chair squat count + Plank tường hold</td><td>Final body comp + Progress photo + Plan Phase 2 + Medical referral discussion</td><td class="kpi-cell">T1→T12 · Phase 2 plan · Referral list</td><td class="point-cell">Medical integration</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ TỔNG HỢP ══ -->
+<section id="tong-hop">
+  <div class="ch-banner">
+    <div class="ch-badge">PHẦN III — BẢNG TỔNG HỢP</div>
+    <h2>12 Tuần × Stand-out Theory Points &amp; Bảng Tra Nhanh CC</h2>
+    <p>Tổng hợp module lý thuyết, loại tập và điểm nổi bật mỗi tuần cho tất cả 3 case</p>
+  </div>
+
+  <div class="card">
+    <div class="card-body">
+      <table class="tbl">
+        <tr><th>Tuần</th><th>Module lý thuyết</th><th>Loại tập chính</th><th>Stand-out Theory Point</th><th>Liên hệ thực hành</th></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T1</td><td>NEAT — TDEE 4 thành phần</td><td>Assessment + Đi bộ Z1 + Core intro</td><td style="color:var(--blue);font-weight:600">NEAT = 15–30% TDEE, gấp 2–3x EA</td><td>Wearable đếm bước ngay T1</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T2</td><td>NEAT — 5 thói quen + Step Ladder</td><td>Strength nhẹ + NEAT habits</td><td style="color:var(--blue);font-weight:600">10.000 bước ≈ 1 buổi gym, 0 dụng cụ</td><td>Đếm cơ hội NEAT trong ngày</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T3</td><td>Progression — Progressive overload</td><td>Strength A + Cardio Z1–Z2</td><td style="color:var(--blue);font-weight:600">≤5–10% tăng tải/tuần (NASM)</td><td>Log tải trọng từ T3</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T4</td><td>Progression — Load/Reps/Sets/TUT</td><td>Strength B + Cardio HR controlled</td><td style="color:var(--blue);font-weight:600">RPE 1–10, TUT 2-1-2 mặc định</td><td>Wearable theo dõi HR zone khi tập</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T5</td><td>Core — LPHC anatomy, sarcopenia</td><td>Core focus + Strength</td><td style="color:var(--blue);font-weight:600">Sarcopenic obesity: cơ mất khi béo không tập</td><td>Core mỗi buổi từ T5</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T6</td><td>Core — Local vs Global, anti-rotation</td><td>Full body + Core circuit</td><td style="color:var(--blue);font-weight:600">McGill Big 3 = gold standard đau lưng</td><td>Plank: quỳ → đầy đủ → nâng cao</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T7</td><td>Wearable — HR zones, SpO2, bước chân</td><td>Strength + Cardio controlled + Sleep review</td><td style="color:var(--blue);font-weight:600">RHR giảm = sức bền tim cải thiện</td><td>Đọc HR zone live khi cardio</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T8</td><td>Wearable — Trend, body comp, progress photo</td><td>Full body + InBody/BIA</td><td style="color:var(--blue);font-weight:600">Sai số wearable ±20–30% — dùng xu hướng</td><td>Body comp T1→T8 so sánh</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T9</td><td>Contra-indications — Absolute vs Relative</td><td>Strength tổng hợp + Mobility check</td><td style="color:var(--blue);font-weight:600">Không có bài tập PHẢI làm — luôn có thay thế</td><td>Mobility check: phát hiện vấn đề tiềm ẩn</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T10</td><td>CC — Red flags, joint protection</td><td>Strength nâng + Interval</td><td style="color:var(--blue);font-weight:600">5 Red Flags DỪNG NGAY: đau ngực, chóng mặt...</td><td>Wearable HR review 10 tuần</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T11</td><td>Integration — Kết nối 5 module</td><td>Full assessment + NEAT audit</td><td style="color:var(--blue);font-weight:600">NEAT + Core + Wearable = tam giác bền vững</td><td>Thiết lập maintenance plan từ data 12 tuần</td></tr>
+        <tr><td style="color:var(--orange);font-weight:700">T12</td><td>Final — Performance test + Phase 2</td><td>Performance test + Final body comp</td><td style="color:var(--blue);font-weight:600">Behavior change > weight loss số liệu</td><td>So sánh T1 vs T12: 5 chiều tiến bộ</td></tr>
+      </table>
+
+      <h3 style="font-size:16px;color:var(--blue);margin:24px 0 12px;">Bảng tra nhanh: Bài tập × 3 Case</h3>
+      <table class="tbl">
+        <tr><th>Bài tập / Hoạt động</th><th>Case Xanh</th><th>Case Vàng</th><th>Case Đỏ</th></tr>
+        <tr><td>Chạy bộ đất cứng</td><td style="color:var(--green);">✅ T8+ sau nền vững</td><td style="color:var(--orange);">⚠️ Sau clearance + không đau khớp</td><td style="color:var(--red);">🚫 Tuyệt đối không giai đoạn đầu</td></tr>
+        <tr><td>Deep Squat (&gt;90°)</td><td style="color:var(--green);">✅ Khi kỹ thuật vững</td><td style="color:var(--orange);">⚠️ Chỉ khi gối OK</td><td style="color:var(--red);">🚫 Không đến khi giảm ≥10% cân</td></tr>
+        <tr><td>HIIT cường độ cao</td><td style="color:var(--green);">✅ T8+ Zone 3 nhẹ</td><td style="color:var(--red);">🚫 Không cho hầu hết Vàng</td><td style="color:var(--red);">🚫 Tuyệt đối không</td></tr>
+        <tr><td>Sit-up / Crunch cũ</td><td style="color:var(--orange);">⚠️ Không cần thiết</td><td style="color:var(--red);">🚫 Hậu sản: tuyệt đối không</td><td style="color:var(--red);">🚫 Tuyệt đối không</td></tr>
+        <tr><td>Deadlift tải nặng</td><td style="color:var(--orange);">⚠️ T10+ kỹ thuật chuẩn</td><td style="color:var(--red);">🚫 Không có clearance physio</td><td style="color:var(--red);">🚫 Tuyệt đối không</td></tr>
+        <tr><td>Jumping / Plyometrics</td><td style="color:var(--green);">✅ T10+ nhẹ</td><td style="color:var(--red);">🚫 Giai đoạn đầu không</td><td style="color:var(--red);">🚫 Tuyệt đối không</td></tr>
+        <tr><td>Plank chuẩn (full)</td><td style="color:var(--green);">✅ Tiến dần từ T3</td><td style="color:var(--orange);">⚠️ Kiểm tra diastasis trước</td><td style="color:var(--orange);">⚠️ Bắt đầu plank tường T6+</td></tr>
+        <tr><td>HR &gt; 80% HR max liên tục</td><td style="color:var(--orange);">⚠️ T10+ có supervision</td><td style="color:var(--red);">🚫 Không cho hầu hết Vàng</td><td style="color:var(--red);">🚫 Tuyệt đối không</td></tr>
+      </table>
+    </div>
+  </div>
+</section>
+
+<div class="div"></div>
+
+<!-- ══ GLOSSARY ══ -->
+<section id="glossary">
+  <div class="sec-head">
+    <div class="sec-tag">Từ điển thuật ngữ</div>
+    <h2>Thuật Ngữ Chuyên Ngành — Anh ↔ Việt</h2>
+  </div>
+  <p style="margin-bottom:18px;color:#6B7280;font-size:14px;">Nhấn vào từng thuật ngữ để xem giải thích đầy đủ.</p>
+
+  <div id="glossary-list">
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>NEAT <span class="en">Non-Exercise Activity Thermogenesis</span></div><div class="gloss-body">Nhiệt sinh học từ hoạt động không phải tập luyện. Tổng năng lượng tiêu hao từ mọi hoạt động thể chất ngoài gym — đi bộ, đứng, làm việc nhà, rung chân. Chiếm 15–30% TDEE và là mục tiêu can thiệp ưu tiên cho người béo phì vì tính bền vững.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>TDEE <span class="en">Total Daily Energy Expenditure</span></div><div class="gloss-body">Tổng năng lượng tiêu hao trong ngày = BMR + TEF + EA + NEAT. Đây là số calo cơ thể cần để duy trì cân nặng hiện tại. Để giảm cân cần tạo caloric deficit (tiêu thụ ít hơn TDEE).</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>BMR <span class="en">Basal Metabolic Rate</span></div><div class="gloss-body">Tốc độ chuyển hóa cơ bản — năng lượng cơ thể dùng khi nằm yên hoàn toàn để duy trì sự sống (hô hấp, tim đập, duy trì thân nhiệt). Chiếm 60–70% TDEE. Tăng khối lượng cơ giúp tăng BMR (~13 kcal/kg cơ/ngày).</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>Progressive Overload <span class="en">Tăng tải tiến trình</span></div><div class="gloss-body">Nguyên tắc tăng dần kích thích (tải trọng, reps, sets, TUT) để cơ thể tiếp tục thích nghi và phát triển. NASM guideline: tăng tải không quá 5–10%/tuần. Đây là nguyên tắc nền tảng của mọi chương trình tập luyện hiệu quả.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>TUT <span class="en">Time Under Tension</span></div><div class="gloss-body">Thời gian cơ chịu tải trong một set. Được viết dưới dạng tempo: A-B-C = A giây hạ xuống (eccentric) · B giây dừng · C giây đẩy lên (concentric). Ví dụ: 3-1-2 = 6 giây/rep. TUT dài giúp tăng kích thích cơ mà không cần tăng tải trọng — phù hợp cho người mới.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>RPE <span class="en">Rating of Perceived Exertion</span></div><div class="gloss-body">Thang đo mức độ gắng sức chủ quan 1–10. RPE 1–3: rất nhẹ (đi dạo). RPE 4–6: vừa phải (khuyến nghị người mới). RPE 7–8: nặng (vận động viên trung cấp). RPE 9–10: tối đa (KHÔNG cho người mới/bệnh nền). RPE 5 = có thể nói chuyện được (Talk Test).</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>LPHC <span class="en">Lumbo-Pelvic-Hip Complex</span></div><div class="gloss-body">Phức hợp Thắt lưng-Chậu-Hông — toàn bộ vùng "cơ lõi" bao gồm cột sống thắt lưng, xương chậu, bụng và hông. Kết nối chi trên và chi dưới. Yếu LPHC = tăng nguy cơ chấn thương toàn thân.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>IAP <span class="en">Intra-Abdominal Pressure</span></div><div class="gloss-body">Áp lực trong ổ bụng. Khi cơ TVA (transverse abdominis) co lại tạo ra IAP, hệ thống này ổn định cột sống như một "đai lưng tự nhiên". TVA là cơ quan trọng nhất trong core deep stabilizers.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>DOMS <span class="en">Delayed Onset Muscle Soreness</span></div><div class="gloss-body">Đau cơ khởi phát muộn — cảm giác đau nhức cơ xuất hiện 24–72 giờ sau tập, đỉnh điểm ở 48h. Bình thường với người mới tập hoặc tăng tải. DOMS kéo dài &gt;72h = dấu hiệu overtraining → cần giảm volume.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>Sarcopenia <span class="en">Teo cơ theo tuổi</span></div><div class="gloss-body">Mất khối lượng và chức năng cơ theo tuổi tác (thường từ sau 30 tuổi). Sarcopenic Obesity = tình trạng vừa béo phì vừa mất cơ — nguy hiểm hơn chỉ béo phì đơn thuần. Ngăn ngừa bằng resistance training 2–3x/tuần.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>HRV <span class="en">Heart Rate Variability</span></div><div class="gloss-body">Biến thiên nhịp tim — sự thay đổi thời gian giữa các nhịp đập. HRV cao = hệ thần kinh thực vật khỏe mạnh, phục hồi tốt. HRV thấp liên tục = overtraining hoặc stress cao. Đo bằng Whoop, Garmin, Apple Watch. Tham khảo: baseline cá nhân, giảm &gt;20% = cần giảm intensity.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>OSA <span class="en">Obstructive Sleep Apnea</span></div><div class="gloss-body">Hội chứng ngừng thở khi ngủ do tắc nghẽn đường thở. Phổ biến ở super-obese (cổ lớn, tích mỡ hầu họng). Biểu hiện: ngáy to, thức giấc nhiều lần, SpO2 giảm ban đêm, buồn ngủ ban ngày. Cần polysomnography để chẩn đoán. Wearable SpO2 có thể giúp screening.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>Diastasis Recti <span class="en">Khoảng hở cơ thẳng bụng</span></div><div class="gloss-body">Sự tách rời hai múi cơ thẳng bụng (rectus abdominis) dọc theo đường giữa bụng. Rất phổ biến sau sinh (60–70% phụ nữ sau sinh). Bài tập core thông thường như sit-up, crunch có thể làm nặng thêm. Cần kiểm tra trước khi thiết kế core program cho hậu sản.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>Valsalva Maneuver <span class="en">Kỹ thuật nín thở gắng sức</span></div><div class="gloss-body">Kỹ thuật nín thở và gắng sức (như khi tập deadlift nặng) tạo ra áp lực trong ổ ngực cao, ổn định cột sống khi nâng tải rất nặng. Nguy hiểm cho người tăng huyết áp (tăng huyết áp đột ngột) và bệnh tim mạch. CHỐNG CHỈ ĐỊNH tuyệt đối cho Case Vàng/Đỏ.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>NAFLD <span class="en">Non-Alcoholic Fatty Liver Disease</span></div><div class="gloss-body">Gan nhiễm mỡ không do rượu — tích tụ mỡ trong tế bào gan (&gt;5% trọng lượng gan) không liên quan đến rượu bia. Liên quan chặt chẽ với kháng insulin, béo phì vùng bụng, tiền tiểu đường. Can thiệp hiệu quả nhất: giảm 7–10% cân nặng qua lối sống lành mạnh.</div></div>
+    <div class="gloss-item"><div class="gloss-head" onclick="this.parentElement.classList.toggle('open')"><span class="gloss-dot"></span>McGill Big 3 <span class="en">Chuẩn vàng Core cho đau lưng</span></div><div class="gloss-body">3 bài tập core do Prof. Stuart McGill (University of Waterloo) phát triển, dựa trên nghiên cứu sinh cơ học cột sống: (1) Modified Curl-up — kích hoạt rectus abdominis mà không gây stress đĩa đệm; (2) Side Plank — kích hoạt quadratus lumborum và obliques; (3) Bird Dog — kích hoạt multifidus và erector spinae. An toàn cho người đau lưng mãn tính.</div></div>
+  </div>
+</section>
+
+</div><!-- end main -->
+
+<!-- ══ SIDEBAR ══ -->
+<aside class="side">
+  <div class="side-card">
+    <h4>Mục lục</h4>
+    <div class="side-toc">
+      <a href="#intro">Tổng quan & 3 case</a>
+      <a href="#neat">Module A — NEAT</a>
+      <a href="#progression">Module B — Progression</a>
+      <a href="#core">Module C — Core</a>
+      <a href="#wearable">Module D — Wearable</a>
+      <a href="#contra">Module E — Chống chỉ định</a>
+      <a href="#xanh">Case Xanh — 12 tuần</a>
+      <a href="#vang">Case Vàng — 12 tuần</a>
+      <a href="#do">Case Đỏ — 12 tuần</a>
+      <a href="#tong-hop">Bảng tổng hợp</a>
+      <a href="#glossary">Từ điển thuật ngữ</a>
+    </div>
+  </div>
+
+  <div class="side-card" style="background:#0F2B5B;border-color:#1E4D8C;">
+    <h4 style="color:rgba(255,255,255,.5);">Số liệu cần nhớ</h4>
+    <div style="font-size:13px;color:rgba(255,255,255,.85);line-height:2;">
+      <div>📌 NEAT chiếm <strong style="color:#7AB3E0;">15–30%</strong> TDEE</div>
+      <div>📌 Tăng tải max <strong style="color:#7AB3E0;">≤10%/tuần</strong></div>
+      <div>📌 TUT mặc định: <strong style="color:#7AB3E0;">2-1-2</strong></div>
+      <div>📌 HR Max = <strong style="color:#7AB3E0;">220 − Tuổi</strong></div>
+      <div>📌 SpO2 bình thường: <strong style="color:#7AB3E0;">≥95%</strong></div>
+      <div>📌 Mục tiêu ngủ: <strong style="color:#7AB3E0;">7–9h/đêm</strong></div>
+      <div>📌 BMI béo phì: <strong style="color:#F87171;">≥30</strong></div>
+      <div>📌 DOMS bình thường: <strong style="color:#7AB3E0;">&lt;72h</strong></div>
+    </div>
+  </div>
+
+  <div class="side-card" style="background:var(--orange-lt);border-color:#FDBA74;">
+    <h4 style="color:var(--orange);">5 Red Flags — DỪNG NGAY</h4>
+    <div style="font-size:13px;color:#7C2D12;line-height:1.9;">
+      <div>❤️ Đau tức ngực khi tập</div>
+      <div>😵 Chóng mặt / Ngất</div>
+      <div>😮‍💨 Khó thở bất thường</div>
+      <div>🦵 Đau khớp cấp tính</div>
+      <div>🤢 Buồn nôn khi tập</div>
+    </div>
+  </div>
+
+  <div class="side-card">
+    <h4>Nguồn tham khảo</h4>
+    <div style="font-size:12px;color:#6B7280;line-height:1.8;">
+      <div>📚 NASM CPT7 (2023)</div>
+      <div>📚 Bye Béo Handbook v1.0</div>
+      <div>📚 ACSM Guidelines 2021</div>
+      <div>📚 McGill S. — Back Mechanic</div>
+      <div>📚 BMJ 2022 — Walking post-meal</div>
+      <div>📚 WHO Physical Activity Guidelines</div>
+    </div>
+  </div>
+</aside>
+
+</div><!-- end cols -->
+</div><!-- end wrap -->
+
+<!-- FOOTER -->
+<div style="background:var(--blue);color:rgba(255,255,255,.55);text-align:center;padding:20px;font-size:12px;margin-top:40px;">
+  Giáo Trình Senior PT · Vận Động An Toàn &amp; Sport Technology · Bye Béo Academy × STA Standard · Dựa trên NASM CPT7 7th Edition · Tài liệu nội bộ
+</div>
+
+<button id="top" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+
+<script>
+// Scroll effects
+window.addEventListener('scroll',()=>{
+  document.getElementById('top').style.display = window.scrollY>400?'flex':'none';
+  const links = document.querySelectorAll('.topnav a');
+  const sections = document.querySelectorAll('section[id]');
+  let cur='';
+  sections.forEach(s=>{if(window.scrollY>=s.offsetTop-70)cur=s.id});
+  links.forEach(a=>{
+    a.classList.remove('act');
+    if(a.getAttribute('href')==='#'+cur)a.classList.add('act');
+  });
+});
+// Glossary open first item
+document.querySelector('.gloss-item').classList.add('open');
+</script>
+</body>
+</html>
